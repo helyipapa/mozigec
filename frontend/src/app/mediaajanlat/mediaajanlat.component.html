@@ -1,0 +1,135 @@
+<div class="cinema-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-top">
+      <div class="logo">
+        <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+          <text x="10" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#ffd700">SZABADSÁG</text>
+          <text x="10" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">MOZI</text>
+        </svg>
+      </div>
+      
+      <div class="search-box">
+        <input 
+          type="text" 
+          class="search-input" 
+          [(ngModel)]="searchText"
+          placeholder="">
+        <div class="search-placeholder" *ngIf="!searchText">
+          <span class="blue-text">Keresés...</span>
+          <span class="grey-text"> filmek között</span>
+        </div>
+        <button class="search-btn">🔍</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a routerLink="/" class="nav-link">Műsor</a>
+      <a routerLink="/jegyarak" class="nav-link">Jegyárak</a>
+      <a routerLink="/teremberles" class="nav-link">Terembérlés</a>
+      <a routerLink="/mediaajanlat" class="nav-link active">Médiaajánlat</a>
+    </nav>
+  </header>
+
+  <!-- Body Wrapper (White Background) -->
+  <div class="body-wrapper">
+    <div class="content-section">
+      <h1 class="page-title">Médiaajánlat</h1>
+      
+      <!-- Advertising Section -->
+      <div class="info-box">
+        <h2 class="info-title">HIRDETÉSI LEHETŐSÉGEK A MOZIBAN</h2>
+        <p class="description">
+          A mozifilmek előtt lehetőség van <span class="highlight">reklámfilmek vetítésére</span>. Ezen kívül lehetséges hirdetni, a <span class="highlight">mozi</span> előterében, a <span class="highlight">mozijegyeken</span> és <span class="highlight">on-line felületeinken</span> is.
+        </p>
+        <p class="description">
+          <span class="highlight">Reklámfilmek</span> valamint online és print hirdetések elkészítését is vállaljuk.
+        </p>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="contact-box">
+        <h2 class="contact-title">AJÁNLATOT SZERETNE KÉRNI?</h2>
+        <p class="contact-description">
+          Ha különleadást szeretne rendelni, termet bérelni vagy további információkra van szüksége, <span class="highlight">kérjük, hívja</span> a <a href="tel:+36202806363" class="phone-link">+36-20-280-6363</a> telefonszámot vagy adja meg elérhetőségét az alábbi űrlapon és kollégánk 48 órán belül felveszi Önnel a kapcsolatot.
+        </p>
+
+        <!-- Contact Form -->
+        <form class="contact-form" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <input 
+              type="text" 
+              class="form-input" 
+              placeholder="Név" 
+              [(ngModel)]="formData.name"
+              name="name"
+              required>
+            <input 
+              type="email" 
+              class="form-input" 
+              placeholder="E-mail cím" 
+              [(ngModel)]="formData.email"
+              name="email"
+              required>
+            <input 
+              type="tel" 
+              class="form-input" 
+              placeholder="Telefonszám" 
+              [(ngModel)]="formData.phone"
+              name="phone"
+              required>
+          </div>
+          <button type="submit" class="submit-btn">Visszahívást kérek</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Payment Section (in Body) -->
+    <div class="payment-section">
+      <div class="payment-logos">
+        <div class="payment-logo barion">barion</div>
+        <div class="payment-logo mc">MasterCard</div>
+        <div class="payment-logo maestro">Maestro</div>
+        <div class="payment-logo visa">VISA</div>
+        <div class="payment-logo amex">AMEX</div>
+        <div class="payment-logo apple">Apple Pay</div>
+        <div class="payment-logo google">Google Pay</div>
+      </div>
+      <p class="payment-info">A kényelmes és biztonságos online fizetést a Barion Payment Zrt. biztosítja.</p>
+      <p class="payment-info">MNB engedély száma: H-EN-I-1064/2013.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Információk</h3>
+        <ul>
+          <li><a href="#">Mozi információk</a></li>
+          <li><a href="#">ÁSZF</a></li>
+          <li><a href="#">Adatvédelmi tájékoztató</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Kapcsolat</h3>
+        <p>Szabadság Mozi</p>
+        <p>1234 Budapest, Szabadság utca 1.</p>
+        <p>Tel: +36-20-280-6363</p>
+        <p>Email: info&#64;szabadsagmozi.hu</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Impresszum</h3>
+        <ul>
+          <li><a href="#">Impresszum</a></li>
+          <li><a href="#">Cookie beállítások</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2024 Szabadság Mozi. Minden jog fenntartva.</p>
+    </div>
+  </footer>
+</div>

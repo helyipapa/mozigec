@@ -1,0 +1,132 @@
+<div class="cinema-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-top">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="160" height="64">
+          <rect width="200" height="80" fill="#ffd700"/>
+          <text x="100" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#000">SZABADSÁG</text>
+          <text x="100" y="55" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#000">MOZI</text>
+          <text x="100" y="70" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">FILM ÉS SZÍNHÁZ</text>
+        </svg>
+      </div>
+      <div class="search-box">
+        <input type="text" class="search-input" [(ngModel)]="searchText">
+        <label class="search-placeholder" *ngIf="!searchText">
+          <span class="blue-text">keresd meg. nézd meg.</span>
+          <span class="grey-text"> műsor keresése</span>
+        </label>
+        <button class="search-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a routerLink="/" class="nav-link">Műsor</a>
+      <a routerLink="/jegyarak" class="nav-link">Jegyárak</a>
+      <a routerLink="/teremberles" class="nav-link active">Terembérlés</a>
+      <a routerLink="/mediaajanlat" class="nav-link">Médiaajánlat</a>
+    </nav>
+  </header>
+
+  <!-- Body Wrapper (White Background) -->
+  <div class="body-wrapper">
+    <div class="content-section">
+      <h1 class="page-title">Terembérlés</h1>
+      
+      <div class="info-box">
+        <h2 class="info-title">A MOZIBAN LEHETŐSÉG VAN TEREMBÉRLÉSRE CÉGEK ÉS MAGÁNSZEMÉLYEK RÉSZÉRE</h2>
+        
+        <ul class="event-list">
+          <li>szakmai konferenciák</li>
+          <li>különesédasok</li>
+          <li>céges rendezvények</li>
+          <li>baráti összejövetelek</li>
+          <li>szülinapi, esküvői, házi védők megtekintése</li>
+          <li>zártkörű filmvetítések</li>
+        </ul>
+        
+        <p class="description">
+          Termeink a legmodernebb vetítés- és hangtechnikával felszereltek. A rendezvényekhez klasszikus mozi büfé termékeket tudunk biztosítani, vagy külsős cég bevonásával catering szolgáltatásra is van lehetőség.
+        </p>
+      </div>
+      
+      <div class="contact-box">
+        <h2 class="contact-title">AJÁNLATOT SZERETNE KÉRNI?</h2>
+        
+        <p class="contact-description">
+          Ha különeléadasat szeretne rendelni, termet bérelni vagy további információkra van szüksége, kérjük, hívja a 
+          <a href="tel:+36202890155" class="phone-link">+36-20-289-0155</a> 
+          telefonszámot vagy adja meg elérhetőségét az alábbi űrlapon és kollégánk 48 órán belül felveszi Önnel a kapcsolatot.
+        </p>
+        
+        <p class="contact-note">
+          Adja meg elérhetőségét az alábbi űrlapon és kollégánk 48 órán belül felveszi Önnel a kapcsolatot.
+        </p>
+        
+        <form class="contact-form" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <input type="text" class="form-input" placeholder="Név" [(ngModel)]="formData.name" name="name" required>
+            <input type="email" class="form-input" placeholder="E-mail cím" [(ngModel)]="formData.email" name="email" required>
+            <input type="tel" class="form-input" placeholder="Telefonszám" [(ngModel)]="formData.phone" name="phone" required>
+          </div>
+          <button type="submit" class="submit-btn">Visszahívást kérek</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="payment-section">
+      <div class="payment-logos">
+        <div class="payment-logo barion">Barion</div>
+        <div class="payment-logo mc">Mastercard</div>
+        <div class="payment-logo maestro">Maestro</div>
+        <div class="payment-logo visa">VISA</div>
+        <div class="payment-logo amex">AMEX</div>
+        <div class="payment-logo apple">Apple Pay</div>
+        <div class="payment-logo google">Google Pay</div>
+      </div>
+      <p class="payment-info">A kényelmes és biztonságos online fizetést a Barion Payment Zrt. biztosítja.</p>
+      <p class="payment-info">MNB engedély száma: H-EN-I-1064/2013.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>INFORMÁCIÓK</h3>
+        <ul>
+          <li><a href="#">Házirend</a></li>
+          <li><a href="#">Fizetési tájékoztató</a></li>
+          <li><a href="#">Adatkezelési tájékoztató</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>KAPCSOLAT</h3>
+        <p><strong>Szabadság Mozi - Film és Színház</strong></p>
+        <p>5400 Mezőtúr, Petőfi út 5.</p>
+        <p>+36-20-289-0155</p>
+        <p>info&#64;szabadsagmozi.hu</p>
+        <br>
+        <p><strong>Büfé nyitvatartás:</strong></p>
+        <p>Péntek 16.00 - 20.00</p>
+        <p>Szombat 12.00 - 21.00</p>
+        <p>Vasárnap 12.00 - 20.00</p>
+      </div>
+      <div class="footer-section">
+        <h3>IMPRESSZUM</h3>
+        <p>Mezőtúri Közművelődési és Sport Közhasznú Nonprofit Kft.</p>
+        <p>5400 Mezőtúr, Szabadság tér 17.</p>
+        <p>Cégjegyzék szám: 16-09-011268</p>
+        <p>Adószám: 14847284-2-16</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Minden jog fenntartva © 2026 Szabadság Mozi - Film és Színház</p>
+    </div>
+  </footer>
+</div>

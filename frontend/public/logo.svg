@@ -1,0 +1,16 @@
+<!-- Szabadság Mozi Logo SVG -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="200" height="80">
+  <!-- Background -->
+  <rect width="200" height="80" fill="#ffd700"/>
+  
+  <!-- Text -->
+  <text x="100" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#000">
+    SZABADSÁG
+  </text>
+  <text x="100" y="55" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#000">
+    MOZI
+  </text>
+  <text x="100" y="70" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">
+    FILM ÉS SZÍNHÁZ
+  </text>
+</svg>

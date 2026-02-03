@@ -1,0 +1,436 @@
+<div class="cinema-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-top">
+      <div class="logo">
+        <svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+          <text x="10" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#ffd700">SZABADSÁG</text>
+          <text x="10" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ffffff">MOZI</text>
+        </svg>
+      </div>
+      
+      <div class="search-box">
+        <input 
+          type="text" 
+          class="search-input" 
+          [(ngModel)]="searchText"
+          placeholder="">
+        <div class="search-placeholder" *ngIf="!searchText">
+          <span class="blue-text">Keresés...</span>
+          <span class="grey-text"> filmek között</span>
+        </div>
+        <button class="search-btn">🔍</button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a routerLink="/" class="nav-link">Műsor</a>
+      <a routerLink="/jegyarak" class="nav-link">Jegyárak</a>
+      <a routerLink="/teremberles" class="nav-link">Terembérlés</a>
+      <a routerLink="/mediaajanlat" class="nav-link">Médiaajánlat</a>
+    </nav>
+  </header>
+
+  <!-- Body Wrapper (White/Light Gray Background) -->
+  <div class="body-wrapper">
+    <div class="content-section">
+      
+      <!-- STEP 1: Movie Details with Showtime Selection -->
+      <div *ngIf="currentStep === 1" class="step-container">
+        <div class="movie-details-header">
+          <div class="movie-poster">
+            <img [src]="selectedMovie.poster" [alt]="selectedMovie.title">
+            <div class="age-rating">{{ selectedMovie.ageRating }}</div>
+          </div>
+          <div class="movie-info">
+            <h1 class="movie-title">{{ selectedMovie.title }}</h1>
+            <p class="movie-language">{{ selectedMovie.language }}</p>
+            <p class="movie-duration">{{ selectedMovie.duration }}</p>
+            <div class="movie-meta">
+              <p><strong>Kezdés:</strong></p>
+              <p>{{ selectedMovie.showDate }}, {{ selectedMovie.showTime }}, {{ selectedMovie.location }}</p>
+              <p><strong>Várható befejezés:</strong></p>
+              <p>{{ selectedMovie.endTime }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-section">
+          <h2 class="section-title">
+            <span class="title-icon">📋</span>
+            MILYEN NÉVEN SZERETNÉL RENDELNI?
+          </h2>
+          
+          <form class="name-email-form" (ngSubmit)="goToStep2()">
+            <div class="form-row-horizontal">
+              <input 
+                type="text" 
+                class="form-input" 
+                placeholder="Név" 
+                [(ngModel)]="bookingData.name"
+                name="name"
+                required>
+              <input 
+                type="email" 
+                class="form-input" 
+                placeholder="E-mail" 
+                [(ngModel)]="bookingData.email"
+                name="email"
+                required>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-secondary" (click)="goBack()">Módosítom az időpontot</button>
+              <button type="submit" class="btn-primary" [disabled]="!bookingData.name || !bookingData.email">Tovább</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- STEP 2: Ticket Type Selection -->
+      <div *ngIf="currentStep === 2" class="step-container">
+        <div class="movie-details-mini">
+          <img [src]="selectedMovie.poster" [alt]="selectedMovie.title" class="mini-poster">
+          <div class="mini-info">
+            <h2>{{ selectedMovie.title }}</h2>
+            <p>{{ selectedMovie.language }}</p>
+            <p>{{ selectedMovie.duration }}</p>
+            <div class="mini-meta">
+              <p><strong>Kezdés:</strong></p>
+              <p>{{ selectedMovie.showDate }}, {{ selectedMovie.showTime }}, {{ selectedMovie.location }}</p>
+              <p><strong>Várható befejezés:</strong></p>
+              <p>{{ selectedMovie.endTime }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="booking-section">
+          <h2 class="section-title">
+            <span class="title-icon">🎟️</span>
+            VÁLASSZ RENDELÉSI MÓDOT
+          </h2>
+
+          <div class="order-methods">
+            <div class="method-card" [class.active]="orderMethod === 'booking'" (click)="selectOrderMethod('booking')">
+              <div class="method-icon">📝</div>
+              <h3>Foglalás</h3>
+              <p>Később fizetem ki a jegyet, most csak lefoglalom a helyet.</p>
+            </div>
+            <div class="method-card" [class.active]="orderMethod === 'purchase'" (click)="selectOrderMethod('purchase')">
+              <div class="method-icon">💳</div>
+              <h3>Vásárlás</h3>
+              <p>Megvásárolom a jegyemet most, hogy elkerüljem a sorbanállást a pénztárnál.</p>
+            </div>
+          </div>
+
+          <div class="payment-info" *ngIf="orderMethod === 'purchase'">
+            <p>A kényelmes és biztonságos online fizetést a Barion Payment Zrt. biztosítja.</p>
+            <p>MNB engedély száma: H-EN-I-1064/2013.</p>
+            <div class="payment-logos-inline">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='30'%3E%3Crect fill='%2300aae7' width='80' height='30'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='Arial' font-size='12' font-weight='bold'%3Ebarion%3C/text%3E%3C/svg%3E" alt="Barion">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30'%3E%3Crect fill='%23eb001b' width='25' height='30'/%3E%3Crect fill='%23f79e1b' x='25' width='25' height='30'/%3E%3C/svg%3E" alt="MasterCard">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30'%3E%3Crect fill='%230099df' width='50' height='30'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='Arial' font-size='10' font-weight='bold'%3Emaestro%3C/text%3E%3C/svg%3E" alt="Maestro">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30'%3E%3Crect fill='%231a1f71' width='50' height='30'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='Arial' font-size='12' font-weight='bold'%3EVISA%3C/text%3E%3C/svg%3E" alt="VISA">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30'%3E%3Crect fill='%23006fcf' width='50' height='30'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='Arial' font-size='10' font-weight='bold'%3EAMEX%3C/text%3E%3C/svg%3E" alt="AMEX">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30'%3E%3Crect fill='%23000' width='50' height='30'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='white' font-family='Arial' font-size='8'%3E Apple Pay%3C/text%3E%3C/svg%3E" alt="Apple Pay">
+              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='30'%3E%3Crect fill='%23fff' stroke='%234285f4' stroke-width='2' width='50' height='30'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%234285f4' font-family='Arial' font-size='8'%3EG Pay%3C/text%3E%3C/svg%3E" alt="Google Pay">
+            </div>
+          </div>
+
+          <h2 class="section-title" style="margin-top: 40px;">
+            <span class="title-icon">🎫</span>
+            MILYEN JEGYET ÉS HÁNY DARABOT SZERETNÉL FOGLALNI?
+          </h2>
+
+          <div class="ticket-selection">
+            <div class="ticket-item" *ngFor="let ticket of ticketTypes">
+              <div class="ticket-info">
+                <h3>{{ ticket.name }}</h3>
+                <p>{{ ticket.description }}</p>
+              </div>
+              <div class="ticket-price">{{ ticket.price }} Ft</div>
+              <div class="ticket-quantity">
+                <button class="qty-btn" (click)="decreaseQuantity(ticket.id)" [disabled]="ticket.quantity === 0">-</button>
+                <span class="qty-display">{{ ticket.quantity }}</span>
+                <button class="qty-btn" (click)="increaseQuantity(ticket.id)">+</button>
+              </div>
+            </div>
+            
+            <div class="ticket-total">
+              <div class="total-label">Összesen</div>
+              <div class="total-price">{{ getTotalPrice() }} Ft</div>
+              <div class="total-quantity">{{ getTotalQuantity() }} db</div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" (click)="goToStep1()">Módosítom a rendelési módot</button>
+            <button type="button" class="btn-primary" (click)="goToStep3()" [disabled]="getTotalQuantity() === 0">Tovább</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: Seat Selection -->
+      <div *ngIf="currentStep === 3" class="step-container">
+        <div class="movie-details-mini">
+          <img [src]="selectedMovie.poster" [alt]="selectedMovie.title" class="mini-poster">
+          <div class="mini-info">
+            <h2>{{ selectedMovie.title }}</h2>
+            <p>{{ selectedMovie.language }}</p>
+            <p>{{ selectedMovie.duration }}</p>
+          </div>
+        </div>
+
+        <div class="booking-section">
+          <h2 class="section-title">
+            <span class="title-icon">🪑</span>
+            VÁLASSZ 3 HELYET A NÉZŐTÉREN
+          </h2>
+
+          <div class="seat-legend">
+            <div class="legend-item">
+              <div class="legend-box available"></div>
+              <span>Szabad</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-box occupied"></div>
+              <span>Foglalt</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-box selected"></div>
+              <span>Kiválasztott</span>
+            </div>
+          </div>
+
+          <div class="cinema-hall">
+            <div class="screen">Vászon</div>
+            
+            <div class="seats-container">
+              <div class="seat-row" *ngFor="let row of seatMap; let rowIndex = index">
+                <div class="row-number">{{ row.rowNumber }}</div>
+                <div class="seats">
+                  <div 
+                    *ngFor="let seat of row.seats; let seatIndex = index"
+                    class="seat"
+                    [class.occupied]="seat.status === 'occupied'"
+                    [class.selected]="seat.status === 'selected'"
+                    [class.available]="seat.status === 'available'"
+                    (click)="selectSeat(rowIndex, seatIndex)">
+                    {{ seat.number }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="selected-seats-info" *ngIf="getSelectedSeats().length > 0">
+            <p><strong>Kiválasztott helyek:</strong> {{ getSelectedSeatsText() }}</p>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" (click)="goToStep2()">Módosítom a jegyeket</button>
+            <button type="button" class="btn-primary" (click)="goToStep4()" [disabled]="getSelectedSeats().length !== getTotalQuantity()">Tovább</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: Booking Summary -->
+      <div *ngIf="currentStep === 4" class="step-container">
+        <div class="booking-section">
+          <h2 class="section-title">
+            <span class="title-icon">📋</span>
+            FOGLALÁS ÁTTEKINTÉSE
+          </h2>
+
+          <div class="summary-section">
+            <h3>Megrendelő</h3>
+            <div class="summary-row">
+              <span class="summary-label">{{ bookingData.name }}</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">{{ bookingData.email }}</span>
+            </div>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-section">
+            <h3>Helyek</h3>
+            <div class="summary-row">
+              <span class="summary-value">{{ getSelectedSeatsText() }}</span>
+            </div>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-section">
+            <div class="summary-row" *ngFor="let ticket of getSelectedTickets()">
+              <div class="summary-ticket">
+                <span class="summary-label">{{ ticket.quantity }}. {{ ticket.name }}</span>
+                <span class="summary-seats">{{ ticket.seats }}</span>
+              </div>
+              <span class="summary-price">{{ ticket.price }} Ft</span>
+            </div>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <div class="summary-total">
+            <span class="total-label">Összesen</span>
+            <span class="total-amount">{{ getTotalPrice() }} Ft</span>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary-large" (click)="goToStep5()">Lefoglalom</button>
+            <button type="button" class="btn-secondary-link" (click)="goToStep3()">Módosítom a helyet</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5: Payment (Online) or Confirmation (Reservation) -->
+      <div *ngIf="currentStep === 5" class="step-container">
+        <div class="movie-details-mini">
+          <img [src]="selectedMovie.poster" [alt]="selectedMovie.title" class="mini-poster">
+          <div class="mini-info">
+            <h2>{{ selectedMovie.title }}</h2>
+            <p>{{ selectedMovie.language }}</p>
+            <p>{{ selectedMovie.duration }}</p>
+          </div>
+        </div>
+
+        <div class="booking-section">
+          <!-- Online Payment -->
+          <div *ngIf="orderMethod === 'online'" class="payment-section">
+            <h2 class="section-title">
+              <span class="title-icon">💳</span>
+              BANKKÁRTYÁS FIZETÉS
+            </h2>
+
+            <div class="payment-summary">
+              <h3>Összesítés</h3>
+              <div class="summary-items">
+                <div *ngFor="let ticket of getSelectedTickets()" class="summary-item">
+                  <span>{{ ticket.name }}</span>
+                  <span>{{ ticket.price }} Ft</span>
+                </div>
+                <div class="summary-total">
+                  <strong>Összesen:</strong>
+                  <strong>{{ getTotalPrice() }} Ft</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="stripe-form">
+              <div class="form-group">
+                <label>Bankkártya adatok</label>
+                <div #cardElement class="card-element"></div>
+                <div *ngIf="paymentError" class="payment-error">{{ paymentError }}</div>
+              </div>
+
+              <div class="payment-info">
+                <p>🔒 Biztonságos fizetés Stripe rendszeren keresztül</p>
+                <p>A fizetési adatokat titkosítva tároljuk</p>
+              </div>
+
+              <div class="form-actions">
+                <button type="button" class="btn-secondary" (click)="currentStep = 4">Vissza</button>
+                <button 
+                  type="button" 
+                  class="btn-primary" 
+                  (click)="processPayment()"
+                  [disabled]="isProcessingPayment || !clientSecret">
+                  {{ isProcessingPayment ? 'Feldolgozás...' : 'Fizetés: ' + getTotalPrice() + ' Ft' }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reservation Confirmation (already processed in goToStep5) -->
+          <div *ngIf="orderMethod === 'helyszini'" class="confirmation-message">
+            <h2 class="section-title">
+              <span class="title-icon">⏳</span>
+              FOGLALÁS FELDOLGOZÁSA...
+            </h2>
+            <p>Kérjük várjon, foglalását rögzítjük...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 6: Successful Booking -->
+      <div *ngIf="currentStep === 6" class="step-container">
+        <div class="booking-section success-section">
+          <div class="success-icon">✅</div>
+          <h2 class="success-title">SIKERES FOGLALÁS</h2>
+          
+          <div class="success-message">
+            <p><strong>Kedves {{ bookingData.name }}!</strong></p>
+            <p>Köszönjük jegyrendelését!</p>
+            <p>A megrendelt jegyeket legkésőbb az előadás kezdete előtt 30 perccel vagy bármely nap nyitvatartási időben átveheted. A jegypénztár minden nap az első előadás kezdete előtt 30 perccel vagy bármely nap nyitvatartási időben átveheted. Tájékoztatunk, hogy az időben át nem vett jegyrendelések törlésre kerülhetnek.</p>
+          </div>
+
+          <div class="booking-details">
+            <p>A jegyfelvételhez a rendeléshez tartozó név és a rendelési szám szükséges. Felhívjuk figyelmeidet, hogy kedvezményes jegyet csak a kedvezményre jogosító érvényes igazolványt (törzskártya, diákigazolvány, nyugdíjas igazolvány, fogyatékkal élők igazolványa) felmutatva nézőinknek, illetve 9 éven aluli gyermekek számára csak a gyermek jelenlétében tudunk kiadni.</p>
+            
+            <p class="booking-number">Megrendelő neve: <span class="highlight">{{ bookingData.name }}</span></p>
+            <p class="booking-number">Rendelés száma: <span class="highlight">{{ getBookingNumber() }}</span></p>
+            
+            <p class="event-title">Előadás címe: <span class="link">{{ selectedMovie.title }}</span></p>
+            <p>Korhatár: {{ selectedMovie.ageRating }} - Tizenhat éven aluliak számára nem ajánlott</p>
+            <p>Időpont: {{ selectedMovie.showDate }} ({{ selectedMovie.dayName }}), {{ selectedMovie.showTime }} (várható befejezés {{ selectedMovie.endTime }})</p>
+            <p>Helyszín: {{ selectedMovie.venue }}</p>
+            
+            <p class="seats-info">Foglalt hely: {{ getSelectedSeats().length }} db</p>
+            <p>{{ getSelectedSeatsText() }}</p>
+            
+            <p>Összesen: <strong>{{ getTotalPrice() }} Ft</strong></p>
+          </div>
+
+          <div class="contact-info">
+            <p>Kérjük, jegyezd fel a jegyrendelés számát, amelyet elküldtünk Neked e-mailben is. Előfordulhat, hogy a visszaigazoló levél tévesen a spam (levélszemét) mappádba kerül.</p>
+            <p>A foglalás során választott jegytípusokon szabadon módosíthataz vásárláskor.</p>
+            <p>A mozi jegypénztárát nyitvatartási időben a <a href="tel:+36202890155">+36-20-289-0155</a> telefonszámon vagy az <a href="mailto:info@szabadsagmozi.hu">info@szabadsagmozi.hu</a> e-mail címen érheted el.</p>
+          </div>
+
+          <p class="closing-message">Kellemes időtöltést és jó szórakozást kívánunk!</p>
+
+          <div class="form-actions">
+            <button type="button" class="btn-primary-large" (click)="goToMovieList()">Tovább a műsorhoz</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Információk</h3>
+        <ul>
+          <li><a href="#">Mozi információk</a></li>
+          <li><a href="#">ÁSZF</a></li>
+          <li><a href="#">Adatvédelmi tájékoztató</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Kapcsolat</h3>
+        <p>Szabadság Mozi</p>
+        <p>1234 Budapest, Szabadság utca 1.</p>
+        <p>Tel: +36-20-280-6363</p>
+        <p>Email: info&#64;szabadsagmozi.hu</p>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Impresszum</h3>
+        <ul>
+          <li><a href="#">Impresszum</a></li>
+          <li><a href="#">Cookie beállítások</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2024 Szabadság Mozi. Minden jog fenntartva.</p>
+    </div>
+  </footer>
+</div>

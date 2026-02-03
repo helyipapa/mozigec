@@ -1,0 +1,141 @@
+<div class="cinema-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-top">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" width="160" height="64">
+          <rect width="200" height="80" fill="#ffd700"/>
+          <text x="100" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#000">SZABADSÁG</text>
+          <text x="100" y="55" font-family="Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#000">MOZI</text>
+          <text x="100" y="70" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#333">FILM ÉS SZÍNHÁZ</text>
+        </svg>
+      </div>
+      <div class="search-box">
+        <input type="text" class="search-input" [(ngModel)]="searchText">
+        <label class="search-placeholder" *ngIf="!searchText">
+          <span class="blue-text">keresd meg. nézd meg.</span>
+          <span class="grey-text"> műsor keresése</span>
+        </label>
+        <button class="search-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <nav class="nav">
+      <a routerLink="/" class="nav-link">Műsor</a>
+      <a routerLink="/jegyarak" class="nav-link active">Jegyárak</a>
+      <a routerLink="/teremberles" class="nav-link">Terembérlés</a>
+      <a routerLink="/mediaajanlat" class="nav-link">Médiaajánlat</a>
+    </nav>
+  </header>
+
+  <!-- Body Wrapper (White Background) -->
+  <div class="body-wrapper">
+    <div class="content-section">
+      <h1 class="page-title">Jegyárak</h1>
+      
+      <div class="prices-table">
+        <div class="price-row header-row">
+          <div class="price-cell">Jegytípus</div>
+          <div class="price-cell">Bruttó ár</div>
+        </div>
+        
+        <div class="price-row">
+          <div class="price-cell">
+            <strong>2D Kedvezményes</strong>
+            <p class="description">Gyermek (7 éves korig), diák és nyugdíjasok részére csak igazolvány felmutatásával.</p>
+          </div>
+          <div class="price-cell price-value">1 800 Ft</div>
+        </div>
+        
+        <div class="price-row">
+          <div class="price-cell">
+            <strong>2D Teljes árú</strong>
+            <p class="description">Teljes árú jegy</p>
+          </div>
+          <div class="price-cell price-value">2 000 Ft</div>
+        </div>
+        
+        <div class="price-row">
+          <div class="price-cell">
+            <strong>3D Kedvezményes</strong>
+            <p class="description">Gyermek (7 éves korig), diák és nyugdíjasok részére csak igazolvány felmutatásával 3D előadások esetén.</p>
+          </div>
+          <div class="price-cell price-value">2 000 Ft</div>
+        </div>
+        
+        <div class="price-row">
+          <div class="price-cell">
+            <strong>3D Teljes árú</strong>
+            <p class="description">Teljes árú jegy 3D előadások esetén.</p>
+          </div>
+          <div class="price-cell price-value">2 200 Ft</div>
+        </div>
+        
+        <div class="price-row">
+          <div class="price-cell">
+            <strong>Ajándék mozijegy</strong>
+            <p class="description">Ajándék mozijegy vásárlása a jegypénztárban lehetséges. Beváltani a jegypénztárban lehet vagy online foglalás esetén, online jegy vásárlásnál NEM lehetséges.</p>
+          </div>
+          <div class="price-cell price-value">2 200 Ft</div>
+        </div>
+      </div>
+      
+      <p class="note">A közzetett árak változtatásának jogát fenntartjuk.</p>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="payment-section">
+      <div class="payment-logos">
+        <div class="payment-logo barion">Barion</div>
+        <div class="payment-logo mc">Mastercard</div>
+        <div class="payment-logo maestro">Maestro</div>
+        <div class="payment-logo visa">VISA</div>
+        <div class="payment-logo amex">AMEX</div>
+        <div class="payment-logo apple">Apple Pay</div>
+        <div class="payment-logo google">Google Pay</div>
+      </div>
+      <p class="payment-info">A kényelmes és biztonságos online fizetést a Barion Payment Zrt. biztosítja.</p>
+      <p class="payment-info">MNB engedély száma: H-EN-I-1064/2013.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>INFORMÁCIÓK</h3>
+        <ul>
+          <li><a href="#">Házirend</a></li>
+          <li><a href="#">Fizetési tájékoztató</a></li>
+          <li><a href="#">Adatkezelési tájékoztató</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>KAPCSOLAT</h3>
+        <p><strong>Szabadság Mozi - Film és Színház</strong></p>
+        <p>5400 Mezőtúr, Petőfi út 5.</p>
+        <p>+36-20-289-0155</p>
+        <p>info&#64;szabadsagmozi.hu</p>
+        <br>
+        <p><strong>Büfé nyitvatartás:</strong></p>
+        <p>Péntek 16.00 - 20.00</p>
+        <p>Szombat 12.00 - 21.00</p>
+        <p>Vasárnap 12.00 - 20.00</p>
+      </div>
+      <div class="footer-section">
+        <h3>IMPRESSZUM</h3>
+        <p>Mezőtúri Közművelődési és Sport Közhasznú Nonprofit Kft.</p>
+        <p>5400 Mezőtúr, Szabadság tér 17.</p>
+        <p>Cégjegyzék szám: 16-09-011268</p>
+        <p>Adószám: 14847284-2-16</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Minden jog fenntartva © 2026 Szabadság Mozi - Film és Színház</p>
+    </div>
+  </footer>
+</div>
